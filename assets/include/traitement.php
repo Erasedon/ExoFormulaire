@@ -8,16 +8,25 @@
     $mdp = $_POST['Mdp'];
     $tel = $_POST['Tel'];
     $date = $_POST['Date'];
-
-    echo "<p>".$Nom.",".$prenom.",".$mail.",".$mdp.",".$tel.",".$date."</p>";
+        
+    $aujourdhui = date("Y-m-d");
+    $diff = date_diff(date_create($date), date_create($aujourdhui));
     $sql = "INSERT INTO `exousers`(`Nom`,`Prenom`,`date`,`mail`,`mobile`,`password`) VALUES ('".$Nom."','".$prenom."','".$date."','".$mail."','" .$tel."','" .$mdp."')"; 
     $prepare = $bdd->prepare($sql);   
      $prepare ->execute();
     $result = $prepare->fetchAll();
-    var_dump($sql);
+    
+    if($diff->format('%y') > 18){
+      header("Location: https://www.amazon.fr/ ", true, 301);
+      exit();
+    }else{
+      header("Location: https://www.youtube.com/watch?v=iuV5G1hkEYE", true, 301);
+      exit();
+    }
 
    }else{
-        echo "marche pas";
+        echo "marche pas c'est vide";
 }
+
+
 ?>
-<script type="text/javascript" src="../js/register.js"></script>
